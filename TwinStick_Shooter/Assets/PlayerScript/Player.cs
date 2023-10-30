@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
 
         // rb.MovePosition(transform.position + currentSpeed  * Time.deltaTime * direction);
-        rb.velocity = direction * currentSpeed * Time.deltaTime;    
+        rb.velocity = direction * currentSpeed * Time.deltaTime * 50;    
     }
 
     // Update is called once per frame

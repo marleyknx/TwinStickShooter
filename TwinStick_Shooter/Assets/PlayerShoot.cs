@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     Player player;
+     float fireRate;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,12 +16,13 @@ public class PlayerShoot : MonoBehaviour
     void Update()
     {
 
+        fireRate += Time.deltaTime;
 
-
-        if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame ) 
+        if (UnityEngine.InputSystem.Keyboard.current.spaceKey.isPressed && fireRate > .1f  || UnityEngine.InputSystem.Gamepad.current.aButton.wasPressedThisFrame && fireRate > .1f) 
        {
             FireBullet();
-       
+            fireRate = 0;
+            ControllerRumble.Instance.RumbleImpulse(0.5f, 0.2f, 0.2f);
        }
 
 
@@ -36,8 +38,9 @@ public class PlayerShoot : MonoBehaviour
             bullet.transform.parent = player.FirePoint;
             bullet.transform.localPosition = Vector3.zero;
             bullet.transform.rotation = transform.rotation;
-         //   var bulletRb = PlayerPooling.instance.bullet.GetComponent<Rigidbody>();
-          //  bulletRb.velocity = player.transform.forward * 800;
+            //   var bulletRb = PlayerPooling.instance.bullet.GetComponent<Rigidbody>();
+            //  bulletRb.velocity = player.transform.forward * 800;
+            bullet.transform.parent = null;
             bullet.SetActive(true);
         }
 
